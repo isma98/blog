@@ -1,0 +1,30 @@
+@font-face {
+	font-family: "Poppins-Bold";
+	src: url("../assets/fonts/Poppins-Bold.ttf");
+}
+
+@font-face {
+	font-family: "Poppins-Light";
+	src: url("../assets/fonts/Poppins-Light.ttf");
+}
+
+@font-face {
+	font-family: "Poppins-Medium";
+	src: url("../assets/fonts/Poppins-Medium.ttf");
+}
+
+
+* {
+	padding:0;
+	margin:0;
+}
+
+body{
+	background-color: #FAFAFA;
+}
+.first-content{
+	margin-top: 80px;
+}
+.last-content{
+	margin-bottom: 20px; 
+}

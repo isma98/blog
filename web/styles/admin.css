@@ -1,0 +1,135 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+
+@font-face {
+	font-family: "Poppins-Light";
+	src: url("../assets/fonts/Poppins-Light.ttf");
+}
+
+@font-face {
+	font-family: "Poppins-Medium";
+	src: url("../assets/fonts/Poppins-Medium.ttf");
+}
+
+/**************************************/
+
+.menu{
+	width: 100%;
+	padding: 20px 0;
+	background-color: #393E41;
+	display: flex;
+	justify-content: space-around;
+	list-style: none;
+}
+
+.menu li{
+	text-align:center;
+}
+
+.menu li a{
+	padding: 15px 10px;
+	text-transform: uppercase;
+	font-family: Poppins-Light;
+	font-size: 16px;
+	text-decoration: none;
+	color: #FAFAFA;
+}
+.active{
+	background-color: #5BC0EB;
+}
+.menu li a:hover{
+	background-color: #5BC0EB;
+}
+/***************************************/
+
+.content{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.title{
+	width: 100%;
+	background-color: #FAFAFA;
+	display: flex;
+	justify-content: space-around;
+	border-bottom: 1px solid #111111;	
+	padding: 10px 0;
+}
+
+.title h4{
+	font-size: 18px;
+	font-family: Poppins-Medium;
+}
+
+.title a{
+	text-decoration:none;
+	padding: 5px 10px;
+	background-color: #28A745;
+	color: #FAFAFA;
+	text-transform:uppercase;
+	font-family: Poppins-Light;
+}
+
+/*************************************/
+.container-table{
+	overflow-x: auto;
+}
+.table{
+	text-align:center;
+	font-family: Poppins-Light;
+}
+.table tbody td{
+	padding: 0 15px;
+}
+.table tbody img{
+	height: 15vh;
+}
+.table tbody form{
+	display:flex;
+}
+.btn-form{
+	padding: 5px;
+	border: initial;
+	color: #FAFAFA;
+	text-transform: uppercase;
+	font-family: Poppins-Light;
+	font-size: 14px;
+	margin: 0 10px;
+	cursor: pointer;
+}
+
+.mod{
+	background-color: #FFC107;
+}
+
+.del{
+	background-color: #DC3545;
+}
+
+@media screen and (min-width: 576px) {
+	.menu li{
+		width: 50%;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.content{
+		align-items: center;
+	}
+	.container-table{
+		width: 90%;
+		background-color: #FAFAFA;
+	}
+	.table tbody img{
+		height: 25vh;
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	.container-table{
+		width: 80%;
+	}
+}

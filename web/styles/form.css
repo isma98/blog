@@ -1,0 +1,100 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+
+@font-face {
+	font-family: "Poppins-Light";
+	src: url("../assets/fonts/Poppins-Light.ttf");
+}
+
+@font-face {
+	font-family: "Poppins-Medium";
+	src: url("../assets/fonts/Poppins-Medium.ttf");
+}
+/***********************************/
+
+.container{
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #FAFAFA;
+	flex-direction: column;
+}
+
+.title{
+	width: 80%;
+	padding: 10px 0;
+	text-align: center;
+}
+
+.title h3{
+	font-family: Poppins-Light;
+	font-size: 18px;
+}
+
+.form{
+	width: 80%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+input{
+	margin: 10px 0;
+}
+label{
+	margin: 10px 0;
+	align-self: flex-start;
+	font-family: Poppins-Medium;
+	font-size: 16px; 
+}
+
+.field{
+	width: 80%;
+	height: 30px;
+	font-family: Poppins-Light;
+	font-size: 16px; 
+}
+
+textarea{
+	font-family: Poppins-Light;
+	font-size: 16px; 	
+}
+
+.container-btn{
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+}
+
+.btn{
+	font-family: Poppins-Light;
+	font-size: 16px;
+	padding: 5px 10px;
+	border:initial;
+	border-radius: 10px;
+	text-transform: uppercase;
+	color: #FAFAFA;
+	cursor: pointer;
+}
+
+.success{
+	background-color: #28A745;
+}
+
+.danger{
+	background-color: #DC3545;
+}
+
+@media screen and (min-width: 768px) {
+	.title{
+		width: 50%;
+	}
+	.form{
+		width: 50%;
+	}
+}
