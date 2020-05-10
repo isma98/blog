@@ -30,7 +30,7 @@
             <label for="title">Titulo</label>
             <input class="field" type="text" name="title" placeholder="Titulo de categoria">
             <label for="image">Imagen</label>
-            <input type="file" name="image" id="image">
+            <input type="file" name="image" id="image" accept="image/*">
 
             <div class="container-btn">
                 <input class="danger btn" type="submit" name="action" value="cancelar">	

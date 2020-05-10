@@ -18,8 +18,9 @@ public class news {
     private String content_image;
     private String content_text;
     private String post_date;
+    private int views;
 
-    public news(int id, int id_category, String category_title, String title, String content_image, String content_text, String post_date) {
+    public news(int id, int id_category, String category_title, String title, String content_image, String content_text, String post_date,int views) {
         this.id = id;
         this.id_category = id_category;
         this.category_title = category_title;
@@ -27,6 +28,7 @@ public class news {
         this.content_image = content_image;
         this.content_text = content_text;
         this.post_date = post_date;
+        this.views = views;
     }
     
     public news() {
@@ -37,6 +39,7 @@ public class news {
         this.content_image = "";
         this.content_text = "";
         this.post_date = "";
+        this.views = 0;
     }
 
     public int getId() {
@@ -93,6 +96,14 @@ public class news {
 
     public void setPost_date(String post_date) {
         this.post_date = post_date;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
     }
     
 }

@@ -27,6 +27,7 @@
             <main class="main">
                 <%for(news n: newsDAO.showNews(id_news)){ 
                     String [] str_date = n.getPost_date().split(" ");
+                    int views = n.getViews() + 1;
                 %>
                     <div class="title-news">	
                         <h3><%= n.getTitle() %></h3>
@@ -38,7 +39,7 @@
 
                     <div class="box-news_content">
                         <figure>
-                            <img src="./assets/images/react.png" alt="imagen de noticia">
+                            <img src="./services/image_news/<%= n.getContent_image() %>" alt="imagen de noticia">
                         </figure>
                         <div class="news_text">
                             <p>
@@ -55,9 +56,9 @@
                 </div>
                 <div class="container-aside-news">
                     <% for(news n : newsDAO.toListNewsAside()){ %>
-                        <a href="News?news=<%= n.getId() %>" class="item-aside-new">
+                        <a href="News?news=<%= n.getId() %>&views=<%= n.getViews() %>" class="item-aside-new">
                             <div class="box-aside-new">	
-                                <img src="./assets/images/programacion.jpg" alt="">
+                                <img src="./services/image_news/<%= n.getContent_image() %>" alt="imagen_noticia">
                                 <div class="new-aside-description">
                                     <span class="type-aside-new">
                                         <%= n.getCategory_title() %>

@@ -43,9 +43,9 @@
                     <% for(news n : newsDAO.toListNewsCategory(id_category)){ 
                         String [] str_date = n.getPost_date().split(" ");
                     %>
-                        <a href="News?news=<%= n.getId() %>" class="item-recent-new">
+                        <a href="News?news=<%= n.getId() %>&views=<%= n.getViews() %>" class="item-recent-new">
                             <div class="box-recent-new">	
-                                <img src="./assets/images/programacion.jpg" alt="">
+                                <img src="./services/image_news/<%= n.getContent_image() %>" alt="imagen_noticia">
                                 <div class="new-description">
                                     <span class="type-recent-new">
                                             <%= n.getCategory_title() %>
@@ -68,9 +68,9 @@
                 </div>
                     <div class="container-aside-news">
                         <% for(news n : newsDAO.toListNewsAside()){ %>
-                            <a href="News?news=<%= n.getId() %>" class="item-aside-new">
+                            <a href="News?news=<%= n.getId() %>&views=<%= n.getViews() %>" class="item-aside-new">
                                 <div class="box-aside-new">	
-                                    <img src="./assets/images/programacion.jpg" alt="">
+                                    <img src="./services/image_news/<%= n.getContent_image() %>" alt="imagen_noticia">
                                     <div class="new-aside-description">
                                         <span class="type-aside-new">
                                             <%= n.getCategory_title() %>

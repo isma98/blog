@@ -48,9 +48,9 @@ public class Category extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         
         String action = request.getParameter("action");
-        
-        System.out.println("accion: "+action);
         /*
+        System.out.println("accion: "+action);
+        
         if(action == null){ System.out.println("El valor de la accion ES nulo");}
         if(action != null){ System.out.println("El valor de la accion NO es nulo");}
         
@@ -105,33 +105,39 @@ public class Category extends HttpServlet {
         name_file = getFileName(image);
         OutputStream salida = null;
         InputStream contenido = null;
+        
+        if(image.getSize() > 0){
+        
+            File folder2 = new File(ruta);
+            if(!folder2.isDirectory()) {
+                folder2.mkdirs();
+            }
 
-        File folder2 = new File(ruta);
-        if(!folder2.isDirectory()) {
-            folder2.mkdirs();
+            try {
+                salida = new FileOutputStream(new File(ruta + File.separator + name_file));
+                contenido = image.getInputStream();
+                int read = 0;
+                final byte[] bytes = new byte[1024];
+                while((read = contenido.read(bytes)) != -1) {
+                    salida.write(bytes, 0 , read);
+                }
+            } catch (FileNotFoundException fne) {
+                System.out.println("Ocurrio un error al guardar la imagen de la categoria, err: "+fne);
+            } finally {
+                if (salida != null) {
+                    salida.close();
+                }
+                if (contenido != null) {
+                    contenido.close();
+                }
+            }
+
+            c.insertCategory(title, name_file);
+            request.getRequestDispatcher("admin.jsp").forward(request, response);
+        }else{
+            c.insertCategory(title, "");
+            request.getRequestDispatcher("admin.jsp").forward(request, response);    
         }
-
-        try {
-            salida = new FileOutputStream(new File(ruta + File.separator + name_file));
-            contenido = image.getInputStream();
-            int read = 0;
-            final byte[] bytes = new byte[1024];
-            while((read = contenido.read(bytes)) != -1) {
-                salida.write(bytes, 0 , read);
-            }
-        } catch (FileNotFoundException fne) {
-            System.out.println("Ocurrio un error al guardar la imagen de la categoria, err: "+fne);
-        } finally {
-            if (salida != null) {
-                salida.close();
-            }
-            if (contenido != null) {
-                contenido.close();
-            }
-        }
-
-        c.insertCategory(title, name_file);
-        request.getRequestDispatcher("admin.jsp").forward(request, response);
     }
     
     private void modCategory(HttpServletRequest request,HttpServletResponse response)
@@ -139,10 +145,11 @@ public class Category extends HttpServlet {
         
         int id = Integer.parseInt(request.getParameter("id"));
         String title = request.getParameter("title");
-        
+        String image_default = request.getParameter("image_default");
+        /*
         System.out.print(id);
         System.out.print(title);
-        
+        */
         String name_file = null;
 
         categoryDAO c = new categoryDAO();
@@ -153,32 +160,38 @@ public class Category extends HttpServlet {
         OutputStream salida = null;
         InputStream contenido = null;
 
-        File folder2 = new File(ruta);
-        if(!folder2.isDirectory()) {
-            folder2.mkdirs();
-        }
+        if(image.getSize() > 0){
+        
+            File folder2 = new File(ruta);
+            if(!folder2.isDirectory()) {
+                folder2.mkdirs();
+            }
 
-        try {
-            salida = new FileOutputStream(new File(ruta + File.separator + name_file));
-            contenido = image.getInputStream();
-            int read = 0;
-            final byte[] bytes = new byte[1024];
-            while((read = contenido.read(bytes)) != -1) {
-                salida.write(bytes, 0 , read);
+            try {
+                salida = new FileOutputStream(new File(ruta + File.separator + name_file));
+                contenido = image.getInputStream();
+                int read = 0;
+                final byte[] bytes = new byte[1024];
+                while((read = contenido.read(bytes)) != -1) {
+                    salida.write(bytes, 0 , read);
+                }
+            } catch (FileNotFoundException fne) {
+                System.out.println("Ocurrio un error al guardar la imagen de la categoria, err: "+fne);
+            } finally {
+                if (salida != null) {
+                    salida.close();
+                }
+                if (contenido != null) {
+                    contenido.close();
+                }
             }
-        } catch (FileNotFoundException fne) {
-            System.out.println("Ocurrio un error al guardar la imagen de la categoria, err: "+fne);
-        } finally {
-            if (salida != null) {
-                salida.close();
-            }
-            if (contenido != null) {
-                contenido.close();
-            }
-        }
 
-        c.updateCategories(id,name_file,title);
-        request.getRequestDispatcher("admin.jsp").forward(request, response);
+            c.updateCategories(id,name_file,title);
+            request.getRequestDispatcher("admin.jsp").forward(request, response);
+        }else{
+            c.updateCategories(id,image_default,title);
+            request.getRequestDispatcher("admin.jsp").forward(request, response);    
+        }
     }
     
     private void deleteCategory(HttpServletRequest request,HttpServletResponse response)

@@ -43,7 +43,9 @@
             <label for="title">Titulo</label>
             <input class="field" type="text" name="title" placeholder="Titulo de categoria" value="<%= title %>">
             <label for="image">Imagen</label>
-            <input type="file" name="image" id="image" value="<%= image %>">
+            
+            <input type="file" name="image" id="image" accept="image/*">
+            <input type="hidden" name="image_default" value="<%= image %>">
 
             <div class="container-btn">
                 <input class="danger btn" type="submit" name="action" value="cancelar">	

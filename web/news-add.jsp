@@ -41,7 +41,7 @@
                 <% } %>
             </select>
             <label for="image">Imagen</label>
-            <input type="file" name="image" id="image">
+            <input type="file" name="image" id="image" accept="image/*">
             <label for="text">Texto de la noticia</label>
             <textarea name="text" cols="40" rows="10"></textarea>
 

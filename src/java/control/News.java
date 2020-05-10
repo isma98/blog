@@ -31,6 +31,16 @@ public class News extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        int id = Integer.parseInt(request.getParameter("news"));
+        int views = Integer.parseInt(request.getParameter("views"));
+        //System.out.println("vistas: "+views);
+        int add_view = views + 1;
+        
+        newsDAO n = new newsDAO();
+        
+        n.updateView(id, add_view);
+        
         request.getRequestDispatcher("post.jsp").forward(request, response);
        
     }
@@ -93,33 +103,40 @@ public class News extends HttpServlet {
         name_file = getFileName(image);
         OutputStream salida = null;
         InputStream contenido = null;
+        
+        if(image.getSize() > 0){
+        
+            File folder2 = new File(ruta);
+            if(!folder2.isDirectory()) {
+                folder2.mkdirs();
+            }
 
-        File folder2 = new File(ruta);
-        if(!folder2.isDirectory()) {
-            folder2.mkdirs();
+            try {
+                salida = new FileOutputStream(new File(ruta + File.separator + name_file));
+                contenido = image.getInputStream();
+                int read = 0;
+                final byte[] bytes = new byte[1024];
+                while((read = contenido.read(bytes)) != -1) {
+                    salida.write(bytes, 0 , read);
+                }
+            } catch (FileNotFoundException fne) {
+                System.out.println("Ocurrio un error al guardar la imagen de la categoria, err: "+fne);
+            } finally {
+                if (salida != null) {
+                    salida.close();
+                }
+                if (contenido != null) {
+                    contenido.close();
+                }
+            }
+
+            n.insertNews(idCategory, title, name_file, text);
+            request.getRequestDispatcher("admin.jsp").forward(request, response);
+    
+        }else{
+            n.insertNews(idCategory, title, "", text);
+            request.getRequestDispatcher("admin.jsp").forward(request, response);
         }
-
-        try {
-            salida = new FileOutputStream(new File(ruta + File.separator + name_file));
-            contenido = image.getInputStream();
-            int read = 0;
-            final byte[] bytes = new byte[1024];
-            while((read = contenido.read(bytes)) != -1) {
-                salida.write(bytes, 0 , read);
-            }
-        } catch (FileNotFoundException fne) {
-            System.out.println("Ocurrio un error al guardar la imagen de la categoria, err: "+fne);
-        } finally {
-            if (salida != null) {
-                salida.close();
-            }
-            if (contenido != null) {
-                contenido.close();
-            }
-        }
-
-        n.insertNews(idCategory, title, name_file, text);
-        request.getRequestDispatcher("admin.jsp").forward(request, response);
     }
     
     private void modNews(HttpServletRequest request,HttpServletResponse response)
@@ -129,11 +146,12 @@ public class News extends HttpServlet {
         String title = request.getParameter("title");
         int idCategory = Integer.parseInt(request.getParameter("id_category"));
         String text = request.getParameter("text");
-        
+        String image_default = request.getParameter("image_default");
         /*
         System.out.print(id);
         System.out.print(title);
         */
+        
         String name_file = null;
 
         newsDAO n = new newsDAO();
@@ -144,32 +162,38 @@ public class News extends HttpServlet {
         OutputStream salida = null;
         InputStream contenido = null;
 
-        File folder2 = new File(ruta);
-        if(!folder2.isDirectory()) {
-            folder2.mkdirs();
-        }
+        if(image.getSize() > 0 ){
+        
+            File folder2 = new File(ruta);
+            if(!folder2.isDirectory()) {
+                folder2.mkdirs();
+            }
 
-        try {
-            salida = new FileOutputStream(new File(ruta + File.separator + name_file));
-            contenido = image.getInputStream();
-            int read = 0;
-            final byte[] bytes = new byte[1024];
-            while((read = contenido.read(bytes)) != -1) {
-                salida.write(bytes, 0 , read);
+            try {
+                salida = new FileOutputStream(new File(ruta + File.separator + name_file));
+                contenido = image.getInputStream();
+                int read = 0;
+                final byte[] bytes = new byte[1024];
+                while((read = contenido.read(bytes)) != -1) {
+                    salida.write(bytes, 0 , read);
+                }
+            } catch (FileNotFoundException fne) {
+                System.out.println("Ocurrio un error al guardar la imagen de la categoria, err: "+fne);
+            } finally {
+                if (salida != null) {
+                    salida.close();
+                }
+                if (contenido != null) {
+                    contenido.close();
+                }
             }
-        } catch (FileNotFoundException fne) {
-            System.out.println("Ocurrio un error al guardar la imagen de la categoria, err: "+fne);
-        } finally {
-            if (salida != null) {
-                salida.close();
-            }
-            if (contenido != null) {
-                contenido.close();
-            }
-        }
 
-        n.updateNews(id, idCategory, title, name_file, text);
-        request.getRequestDispatcher("admin.jsp").forward(request, response);
+            n.updateNews(id, idCategory, title, name_file, text);
+            request.getRequestDispatcher("admin.jsp").forward(request, response);
+        }else{
+            n.updateNews(id, idCategory, title, image_default, text);
+            request.getRequestDispatcher("admin.jsp").forward(request, response);     
+        }
     }
     
     private void deleteNews(HttpServletRequest request,HttpServletResponse response)

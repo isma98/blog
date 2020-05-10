@@ -21,7 +21,6 @@
     String title = request.getParameter("title");
     String image = request.getParameter("image");
     String text = request.getParameter("text");
-
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -54,13 +53,14 @@
                 <% } %>
             </select>
             <label for="image">Imagen</label>
-            <input type="file" name="image" id="image" value="<%= image %>">
+            <input type="file" name="image" id="image" accept="image/*">
+            <input type="hidden" name="image_default" value="<%= image %>">
             <label for="text">Texto de la noticia</label>
-            <textarea name="text" cols="40" rows="10" value="<%= text %>"></textarea>
+            <textarea name="text" cols="40" rows="10"><%= text %></textarea>
             
             <div class="container-btn">
                     <input class="danger btn" type="submit" name="action" value="cancelar">	
-                    <input class="success btn" type="submit" name="action" value="registrar">
+                    <input class="success btn" type="submit" name="action" value="actualizar">
             </div>
 
         </form>		
